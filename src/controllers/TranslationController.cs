@@ -19,7 +19,7 @@ namespace LiveCaptionsTranslator.controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"[Error] Translation failed: {ex.Message}");
-                return $"[Translation Failed] {ex.Message}";
+                return App.Settings.HideErrorMessages ? "" : $"[Translation Failed] {ex.Message}";
             }
 
             if (doLog && !string.IsNullOrEmpty(translatedText))

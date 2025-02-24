@@ -33,6 +33,17 @@ namespace LiveCaptionsTranslator.models
             }
         }
 
+        private bool hideErrorMessages;
+
+        public bool HideErrorMessages
+        {
+            get => hideErrorMessages;
+            set
+            {
+                hideErrorMessages = value;
+                OnPropertyChanged(nameof(HideErrorMessages));
+            }
+        }
         public string ApiName
         {
             get => apiName;

@@ -39,6 +39,13 @@
                         Value="{Binding MaxSyncInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </StackPanel>
+            <StackPanel Margin="15,10,0,0" Orientation="Vertical">
+                <CheckBox
+                    Width="140"
+                    Height="25"
+                    IsChecked="{Binding HideErrorMessages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="Hide Errors" />
+            </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Orientation="Vertical">

@@ -58,7 +58,7 @@ namespace LiveCaptionsTranslator.models
             }
             catch (Exception ex)
             {
-                return $"[Translation Failed] {ex.Message}";
+                return App.Settings.HideErrorMessages ? "" : $"[Translation Failed] {ex.Message}";
             }
 
             if (response.IsSuccessStatusCode)
@@ -68,7 +68,7 @@ namespace LiveCaptionsTranslator.models
                 return responseObj.choices[0].message.content;
             }
             else
-                return $"[Translation Failed] HTTP Error - {response.StatusCode}";
+                return App.Settings.HideErrorMessages ? "" : $"[Translation Failed] HTTP Error - {response.StatusCode}";
         }
 
         public static async Task<string> Ollama(string text)
@@ -103,7 +103,7 @@ namespace LiveCaptionsTranslator.models
             }
             catch (Exception ex)
             {
-                return $"[Translation Failed] {ex.Message}";
+                return App.Settings.HideErrorMessages ? "" : $"[Translation Failed] {ex.Message}";
             }
 
             if (response.IsSuccessStatusCode)
@@ -113,7 +113,7 @@ namespace LiveCaptionsTranslator.models
                 return responseObj.message.content;
             }
             else
-                return $"[Translation Failed] HTTP Error - {response.StatusCode}";
+                return App.Settings.HideErrorMessages ? "" : $"[Translation Failed] HTTP Error - {response.StatusCode}";
         }
 
         private static async Task<string> GoogleTranslate(string text)
@@ -138,12 +138,12 @@ namespace LiveCaptionsTranslator.models
                 }
                 else
                 {
-                    return $"[Translation Failed] HTTP Error - {response.StatusCode}";
+                    return App.Settings.HideErrorMessages ? "" : $"[Translation Failed] HTTP Error - {response.StatusCode}";
                 }
             }
             catch (Exception ex)
             {
-                return $"[Translation Failed] {ex.Message}";
+                return App.Settings.HideErrorMessages ? "" : $"[Translation Failed] {ex.Message}";
             }
         }
 
