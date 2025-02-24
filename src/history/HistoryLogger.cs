@@ -42,6 +42,27 @@ namespace LiveCaptionsTranslator.models
             using (var connection = new SqliteConnection(ConnectionString))
             {
                 await connection.OpenAsync();
+
+                string selectQuery = @"
+                    SELECT SourceText 
+                    FROM TranslationHistory 
+                    ORDER BY Timestamp DESC 
+                    LIMIT 1";
+
+                using (var selectCommand = new SqliteCommand(selectQuery, connection))
+                using (var reader = await selectCommand.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        string latestSourceText = reader.GetString(reader.GetOrdinal("SourceText"));
+                        if (latestSourceText == sourceText)
+                        {
+                            // If latest SourceText is the same as the one to be inserted, give up to prevent duplicate
+                            return;
+                        }
+                    }
+                }
+
                 string insertQuery = @"
                     INSERT INTO TranslationHistory (Timestamp, SourceText, TranslatedText, TargetLanguage, ApiUsed)
                     VALUES (@Timestamp, @SourceText, @TranslatedText, @TargetLanguage, @ApiUsed)";
